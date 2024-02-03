@@ -1,0 +1,9 @@
+/* Frame.css */
+.frame {
+	display: flex;
+	flex-direction: column;
+	background-color: black !important;
+	 /* Set the background color to black */
+	color: white; /* Optional: Change the text color to white for better readability */
+	padding: 20px; /* Optional: Add some padding */
+  }
