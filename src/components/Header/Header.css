@@ -1,9 +1,25 @@
-/* Frame.css */
-.frame {
+.header {
 	display: flex;
 	flex-direction: column;
-	background-color: black !important;
-	 /* Set the background color to black */
-	color: white; /* Optional: Change the text color to white for better readability */
-	padding: 20px; /* Optional: Add some padding */
+	justify-content: center; /* Center content vertically */
+	align-items: center; /* Center content horizontally */
+	color: white;
+	padding: 1em; /* Add some padding */
+	font-family: 'Arial', sans-serif; /* Use a modern font */
+	font-size: 24px; /* Adjust font size as needed */
+	font-weight: bold; /* Optional: Make the font bold */
+  }
+
+  .logo {
+	
+	top: 1em;
+	right: 1em;
+	position: abosolute;
+	width: 5em;
+	height: 2.5em;
+  }
+
+  .headerContainer {
+	display: flex;
+	flex-direction: row;
   }
