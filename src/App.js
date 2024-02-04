@@ -137,10 +137,19 @@ function Planet({
   },
   setDialogData,
   isAnimating,
-  setIsAnimating
+  setIsAnimating,
 }) {
   const planetRef = React.useRef();
-  const texture = useLoader(THREE.TextureLoader, tx1); //HARDCODED TEXTURE
+
+  console.log("textureMap: ", textureMap);
+  const imageBlob = textureMap.blob();
+  console.log("imageBlob", imageBlob);
+  const imageObjectUrl = URL.createObjectURL(imageBlob);
+  console.log("imageObjectUrl", imageObjectUrl);
+  console.log("type of ObjectUrl", typeof imageObjectUrl);
+  const texture = useLoader(THREE.TextureLoader, imageObjectUrl);
+
+  //const texture = useLoader(THREE.TextureLoader, tx1); //HARDCODED TEXTURE
   useFrame(({ clock }) => {
     if (isAnimating) {
       const t = clock.getElapsedTime() * speed + offset;
@@ -161,10 +170,7 @@ function Planet({
 
   return (
     <>
-      <mesh
-        ref={planetRef}
-        onClick={handlePlanetClick}
-      >
+      <mesh ref={planetRef} onClick={handlePlanetClick}>
         <sphereGeometry args={[size, 32, 32]} />
         <meshStandardMaterial map={texture} />
         <Html distanceFactor={15}>
