@@ -51,7 +51,7 @@ export default function App() {
   const hideDialog = () => {
     // Add the fade-out animation class
     setIsDialogVisible(false);
-  
+
     // Wait for the animation to complete before actually hiding the dialog
     setTimeout(() => {
       setDialogData(null);
@@ -60,12 +60,10 @@ export default function App() {
   };
 
   const handleSearch = async (spotifyLink) => {
-    console.log("handle search called");
-    console.log("spotifyURL: ", spotifyLink);
-
     const postData = {
       url: spotifyLink,
     };
+    console.log(postData);
 
     const options = {
       method: "POST",
@@ -73,21 +71,8 @@ export default function App() {
       body: JSON.stringify(postData),
     };
 
-    const res = await fetch(
-      "http://localhost:8000/spotify/playlist",
-      options,
-    );
-
-    
-      //const response = await fetch(`http://localhost:8000/spotify/test`);
-      //const json = await response.json();
-      console.log("response: ", json);
-      setPlanetData(res.items);
-      console.log("State Planet Variable", { planetData });
-
-      // Process your response data here
-    
-    
+    const res = await fetch("http://localhost:8000/spotify/playlist", options);
+    setPlanetData(res.items);
   };
 
   if (planetData) {
@@ -98,7 +83,11 @@ export default function App() {
         <Dialog
           hideDialog={hideDialog}
           dialogData={dialogData}
-          className={isDialogVisible ? "dialog dialog-fade-in-up" : "dialog dialog-fade-out-down"}
+          className={
+            isDialogVisible
+              ? "dialog dialog-fade-in-up"
+              : "dialog dialog-fade-out-down"
+          }
         />
         <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
           <Suspense fallback={null}>
