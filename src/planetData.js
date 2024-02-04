@@ -28,13 +28,15 @@ for (let index = 0; index < totalPlanets; index++) {
     color: randomColor(),
     xRadius: (index + 1.5) * 4,
     zRadius: (index + 1.5) * 2,
-    size: random(0.5, 1),
-
-    speed: random(0.1, 0.6),
+    size: random(0.5, .8),
+    speed: random(0.05, 0.06),
     offset: random(0, Math.PI * 2),
-    rotationSpeed: random(0.01, 0.03),
-    textureMap: textures[index]
-
+    rotationSpeed: random(0.008, 0.004),
+    textureMap: textures[index],
+    name: (Math.random() + 1).toString(36).substring(7).toUpperCase(),
+    gravity: random(2, 5).toFixed(2),
+    orbitalPeriod: randomInt(50, 500),
+    surfaceArea: random(100, 1000).toFixed(2)
   });
 }
 
