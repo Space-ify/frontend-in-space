@@ -41,7 +41,6 @@ export default function App() {
   const [isAnimating, setIsAnimating] = useState(true);
   const [dialogData, setDialogData] = useState(null);
   const [planetData, setPlanetData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     console.log("Planet data has changed:", planetData);
@@ -68,29 +67,16 @@ export default function App() {
 
     const options = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(postData),
     };
 
     const res = await fetch("http://localhost:8000/spotify/playlist", options);
-    setPlanetData(res.items);
-    console.log("handle search called");
-    console.log("spotifyURL: ", spotifyLink);
-
-    try {
-      const response = await fetch(`http://localhost:8000/spotify/test`);
-      const json = await response.json();
-      console.log("response: ", json);
-      setPlanetData(json.items);
-      console.log("State Planet Variable", { planetData });
-
-      // Process your response data here
-    } catch (error) {
-      console.error("Error fetching data: ", error);
-      // Handle error here
-    }
+    const json = await res.json();
+    setPlanetData(json.items);
   };
-  
 
   if (planetData) {
     return (
@@ -125,7 +111,6 @@ export default function App() {
         </Canvas>
         <Bottomer handleSearch={handleSearch}></Bottomer>
       </>
-      
     );
   } else {
     return (
@@ -144,7 +129,6 @@ export default function App() {
       </>
     );
   }
-  
 }
 function Sun() {
   const texture = useLoader(THREE.TextureLoader, sunTexture);
@@ -177,14 +161,15 @@ function Planet({
 }) {
   const planetRef = React.useRef();
   const [time, setTime] = useState(0);
-  const texture = useLoader(THREE.TextureLoader, tx1); //HARDCODED TEXTURE
+  const imageUrl = `data:image/png;base64,${textureMap}`;
+  const texture = useLoader(THREE.TextureLoader, imageUrl); //HARDCODED TEXTURE
   useEffect(() => {
     let interval;
 
     if (isAnimating) {
       // Start the timer only if the animation is running
       interval = setInterval(() => {
-        setTime(prevTime => prevTime + 0.01); // Update time
+        setTime((prevTime) => prevTime + 0.01); // Update time
       }, 10); // Adjust the interval as needed
     } else {
       // Clear the interval if the animation is not running
@@ -196,11 +181,10 @@ function Planet({
         clearInterval(interval); // Clear the interval on cleanup
       }
     };
-  }, [isAnimating]); 
+  }, [isAnimating]);
   useFrame(() => {
     if (isAnimating) {
-      const t = time *0.25* speed + offset;
-      console.log(time);
+      const t = time * 0.25 * speed + offset;
       const x = xRadius * Math.sin(t);
       const z = xRadius * Math.cos(t);
       planetRef.current.position.x = x;
