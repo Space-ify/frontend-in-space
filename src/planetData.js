@@ -33,9 +33,9 @@ for (let index = 0; index < totalPlanets; index++) {
     speed: random(0.1, 0.6),
     offset: random(0, Math.PI * 2),
     rotationSpeed: random(0.01, 0.03),
-    textureMap: textures[index]
-
+    textureMap: textures[index],
   });
+  console.log("planetData", planetData);
 }
 
 export default planetData;

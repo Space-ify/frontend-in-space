@@ -1,34 +1,116 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState, useEffect } from "react"; // Import useState here
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import planetData from "./planetData";
 import sunTexture from "./textures/sun.jpg";
 import "./styles.css";
+import dummyPlanetData from "./planetData";
 
 import Header from "./components/Header/Header";
 import Bottomer from "./components/Bottomer/Bottomer";
 
+import tx1 from "./textures/1.jpg";
+import tx2 from "./textures/2.jpg";
+import tx3 from "./textures/3.jpg";
+import tx4 from "./textures/4.jpg";
+import tx5 from "./textures/5.jpg";
+import tx6 from "./textures/6.jpg";
+
+const totalPlanets = 6;
+
+const random = (a, b) => a + Math.random() * b;
+const randomInt = (a, b) => Math.floor(random(a, b));
+const randomColor = () =>
+  `rgb(${randomInt(80, 50)}, ${randomInt(80, 50)}, ${randomInt(80, 50)})`;
+
+const shuffle = (a) => {
+  const temp = a.slice(0);
+  for (let i = temp.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [temp[i], temp[j]] = [temp[j], temp[i]];
+  }
+  return temp;
+};
+
+const textures = shuffle([tx1, tx2, tx3, tx4, tx5, tx6]);
+
+// Declare the spotifyLink state variable and its setter function
+
+//const [planetData, setPlanetData] = useState("");
+
 export default function App() {
-  return (
-    <>
-      <Header></Header>
+  const [planetData, setPlanetData] = useState([]);
+  //const [spotifyLink, setSpotifyLink] = useState("");
+  console.log("planetData", planetData);
 
-      <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
-        <Suspense fallback={null}>
-          <Sun />
-          {planetData.map((planet) => (
-            <Planet planet={planet} key={planet.id} />
-          ))}
-          <Lights />
-          <OrbitControls />
-        </Suspense>
-      </Canvas>
+  useEffect(() => {
+    console.log("Planet data has changed:", planetData);
 
-      <Bottomer></Bottomer>
-    </>
-  );
+    // Any additional logic you want to run when planetData changes
+  }, [planetData]); // Dependency array with planetData means this effect runs when planetData changes
+
+  const handleSearch = async (spotifyLink) => {
+    console.log("handle search called");
+    console.log("spotifyURL: ", spotifyLink);
+
+    try {
+      const response = await fetch(`http://localhost:8000/spotify/test`);
+      const json = await response.json();
+      console.log("response: ", json);
+      setPlanetData(json.items);
+      console.log("State Planet Variable", { planetData });
+
+      // Process your response data here
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+      // Handle error here
+    }
+  };
+
+  if (planetData) {
+    console.log("planet case");
+    console.log("planetData", planetData);
+    return (
+      <>
+        <Header></Header>
+
+        <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
+          <Suspense fallback={null}>
+            <Sun />
+            {console.log("dummy before map: ", dummyPlanetData)}
+            {console.log("before map: ", planetData)}
+            {planetData.map((planet) => (
+              <Planet planet={planet} key={planet.id} />
+            ))}
+            <Lights />
+            <OrbitControls />
+          </Suspense>
+        </Canvas>
+
+        <Bottomer handleSearch={handleSearch}></Bottomer>
+      </>
+    );
+  } else {
+    console.log("empty case");
+    return (
+      <>
+        <Header></Header>
+
+        <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
+          <Suspense fallback={null}>
+            <Sun />
+
+            <Lights />
+            <OrbitControls />
+          </Suspense>
+        </Canvas>
+
+        <Bottomer handleSearch={handleSearch}></Bottomer>
+      </>
+    );
+  }
 }
+
 function Sun() {
   const texture = useLoader(THREE.TextureLoader, sunTexture);
   return (
@@ -51,7 +133,7 @@ function Planet({
   },
 }) {
   const planetRef = React.useRef();
-  const texture = useLoader(THREE.TextureLoader, textureMap);
+  const texture = useLoader(THREE.TextureLoader, tx1);
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime() * speed + offset;
     const x = xRadius * Math.sin(t);
