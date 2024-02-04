@@ -1,65 +1,74 @@
 .spotify-container {
-	position: absolute;
-	display: flex;
-	flex-direction: column;
-	top: 85%;
-	justify-content: center;
-	align-items: center;
-	z-index: 20000;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 85%;
+    justify-content: center;
+    align-items: center;
+    z-index: 20000;
+	margin-left: 2em;
+	
   }
   
   .spotify-container p {
-	margin: 0;
+    margin: 0;
   }
   
   .spotify-container .listening {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
   }
   
   .spotify-container .listening p {
-	font-style: italic;
-	margin-bottom: 3%;
+    font-style: italic;
+    
   }
   
   .spotify {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	height: 50%;
-	width: 100%;
-	margin-left: 1vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 3em;
+	min-height: 3em;
+    margin-left: .7em;
+	
+	
   }
   
   .spotify .image {
-	display: flex;
-	height: 100%;
-	aspect-ratio: 1/1;
-	justify-content: center;
+    
+    min-width: 3em;
+	min-height: 3em;
+    
+    justify-content: center;
   }
   
   .spotify .text {
-	display: flex;
-	flex-direction: column;
-	margin-left: 0.75vh;
-	justify-content: center;
-	overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.75vh;
+    justify-content: center;
+    overflow: hidden;
   }
   
-  .spotify .text p {
-	margin: 0;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-  }
+ 
   
-  .spotify .artist {
-	color: #8b8686;
-	font-size: 80%;
-  }
-  
+
+
   .spotify .name {
-	font-weight: bold;
-	text-overflow: ellipsis;
+    font-family: 'Gotham', 'Circular', Arial, sans-serif;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    margin-bottom: .7em;
+}
+  .spotify .author {
+    font-family: 'Gotham', 'Circular', Arial, sans-serif;
+    text-overflow: ellipsis;
+
+  }
+
+
+  .spotify .buffer {
+	
   }

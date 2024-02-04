@@ -3,14 +3,25 @@ import "./Spotify.css"; // Ensure the CSS file is correctly imported
 import React, { useState, useEffect } from "react";
 import spotify from "../../photos/spotify.png";
 
-const Spotify = () => {
-  const [spotifyData, setSpotifyData] = useState([]);
-  const [isListening, setListening] = useState(false);
+const Spotify = ({ onePlanetData }) => {
+  const [spotifyData, setSpotifyData] = useState("empty");
+
   const [albumCover, setAlbumCover] = useState(spotify);
+  console.log("PLANET DATAAAAAAA PLEASE", onePlanetData);
+  console.log("PLANET DATAAAAAAA TYPE", typeof onePlanetData);
+  console.log("PLANET DATAAAAAAA TYPE", typeof "empty");
+
+  if (onePlanetData === "empty") {
+    console.log("NO PLANETS");
+  } else {
+    console.log("000000000000000000000", onePlanetData);
+    console.log("PLANETSSSSS");
+  }
+
   const domain = process.env.REACT_APP_DOMAIN;
   // const url = `${domain}/api/spotify/now-playing`;
   const url =
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/2048px-Spotify_logo_without_text.svg.png";
+    "https://pyxis.nymag.com/v1/imgs/5a1/58c/580de90bf142c7660dcbaf8faa789a61b1-20-taylor-swift-1989.2x.w710.png";
 
   const fetchSpotify = async () => {
     try {
@@ -62,24 +73,37 @@ const Spotify = () => {
   // }, [spotifyData]);
 
   return (
-    <div className="spotify-container">
-      SPOTIFY
+    <div
+      className="spotify-container"
+      style={{
+        marginTop: "2em",
+      }}
+    >
       <>
-        <div className="listening">
-          <div className="text">
-            <p style={{ color: 'white'}}>Now Listening To On Spotify:</p>
-          </div>
-        </div>
+        <div className="listening"></div>
         <div className="spotify">
           <div className="image">
-            <img
-              src={spotify}
-              style={{ width: "4em", height: "4em" }}
-              alt="Album cover"
-            />
+            {onePlanetData !== "empty" && (
+              <img
+                src={onePlanetData.image_url}
+                style={{
+                  width: "6em",
+                  height: "6em",
+                  borderRadius: "9px",
+                  marginRight: "0.7em",
+                }}
+                alt="Album cover"
+              />
+            )}
           </div>
           <div className="text">
-            <p style={{ color: 'white'}} className="name">Not Listening</p>
+            <p style={{ color: "white" }} className="name">
+              {onePlanetData.name}
+            </p>
+            <p className="buffer"></p>
+            <p style={{ color: "white" }} className="author">
+              {onePlanetData.artists}
+            </p>
           </div>
         </div>
       </>

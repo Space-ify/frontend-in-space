@@ -40,13 +40,19 @@ export default function App() {
   const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
   const [dialogData, setDialogData] = useState(null);
-  const [planetData, setPlanetData] = useState([]);
+  const [planetData, setPlanetData] = useState("empty");
+  const [onePlanetData, setOnePlanetData] = useState("empty");
 
   useEffect(() => {
     console.log("Planet data has changed:", planetData);
 
     // Any additional logic you want to run when planetData changes
   }, [planetData]);
+
+  useEffect(() => {
+    console.log("onePlanetData has changed:", onePlanetData);
+    // You can perform other actions here if needed when onePlanetData changes
+  }, [onePlanetData]);
 
   const hideDialog = () => {
     // Add the fade-out animation class
@@ -92,10 +98,11 @@ export default function App() {
   //   // Handle error here
   // }
 
-  if (planetData) {
+  if (planetData != "empty") {
+    console.log("PLANET CASE ---------------", onePlanetData);
     return (
       <>
-        <Spotify></Spotify>
+        <Spotify onePlanetData={onePlanetData}></Spotify>
         <Header></Header>
         <Dialog
           hideDialog={hideDialog}
@@ -114,6 +121,7 @@ export default function App() {
                 planet={planet}
                 key={planet.id}
                 setDialogData={setDialogData}
+                setOnePlanetData={setOnePlanetData}
                 isAnimating={isAnimating}
                 setIsAnimating={setIsAnimating}
                 setIsDialogVisible={setIsDialogVisible} // for animation
@@ -127,9 +135,10 @@ export default function App() {
       </>
     );
   } else {
+    console.log("EMPTY CASE ---------------");
     return (
       <>
-        <Spotify></Spotify>
+        <Spotify onePlanetData="empty"></Spotify>
         <Header></Header>
         <Dialog hideDialog={hideDialog} dialogData={dialogData} />
         <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
@@ -168,12 +177,15 @@ function Planet({
     is_explicit,
     surfaceArea,
     population,
+    image_url,
   },
   setDialogData,
+  setOnePlanetData,
   isAnimating,
   setIsAnimating,
   setIsDialogVisible,
 }) {
+  console.log("------------------- image url", image_url);
   const planetRef = React.useRef();
   const [time, setTime] = useState(0);
   const imageUrl = `data:image/png;base64,${textureMap}`;
@@ -200,6 +212,7 @@ function Planet({
   useFrame(() => {
     if (isAnimating) {
       const t = time * 0.25 * speed + offset;
+
       const x = xRadius * Math.sin(t);
       const z = xRadius * Math.cos(t);
       planetRef.current.position.x = x;
@@ -217,6 +230,7 @@ function Planet({
       is_explicit,
       population,
     });
+    setOnePlanetData({ name, artists, image_url });
   };
 
   const hitboxSize = size * 1000000;
