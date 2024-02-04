@@ -42,9 +42,6 @@ export default function App() {
   const [dialogData, setDialogData] = useState(null);
   const [planetData, setPlanetData] = useState([]);
 
-
-
-  
   useEffect(() => {
     console.log("Planet data has changed:", planetData);
 
@@ -70,7 +67,9 @@ export default function App() {
 
     const options = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(postData),
     };
 
@@ -80,19 +79,18 @@ export default function App() {
     console.log("CHECK JSON ATTRIBUTES", json.items);
   };
 
-    // try {
-    //   const response = await fetch(`http://localhost:8000/spotify/test`);
-    //   const json = await response.json();
-    //   console.log("response: ", json);
-    //   setPlanetData(json.items);
-    //   console.log("State Planet Variable", { planetData });
+  // try {
+  //   const response = await fetch(`http://localhost:8000/spotify/test`);
+  //   const json = await response.json();
+  //   console.log("response: ", json);
+  //   setPlanetData(json.items);
+  //   console.log("State Planet Variable", { planetData });
 
-    //   // Process your response data here
-    // } catch (error) {
-    //   console.error("Error fetching data: ", error);
-    //   // Handle error here
-    // }
-  
+  //   // Process your response data here
+  // } catch (error) {
+  //   console.error("Error fetching data: ", error);
+  //   // Handle error here
+  // }
 
   if (planetData) {
     return (
@@ -127,7 +125,6 @@ export default function App() {
         </Canvas>
         <Bottomer handleSearch={handleSearch}></Bottomer>
       </>
-      
     );
   } else {
     return (
@@ -146,7 +143,6 @@ export default function App() {
       </>
     );
   }
-  
 }
 function Sun() {
   const texture = useLoader(THREE.TextureLoader, sunTexture);
@@ -171,7 +167,7 @@ function Planet({
     artists,
     is_explicit,
     surfaceArea,
-    population
+    population,
   },
   setDialogData,
   isAnimating,
@@ -188,7 +184,7 @@ function Planet({
     if (isAnimating) {
       // Start the timer only if the animation is running
       interval = setInterval(() => {
-        setTime(prevTime => prevTime + 0.01); // Update time
+        setTime((prevTime) => prevTime + 0.01); // Update time
       }, 10); // Adjust the interval as needed
     } else {
       // Clear the interval if the animation is not running
@@ -200,11 +196,10 @@ function Planet({
         clearInterval(interval); // Clear the interval on cleanup
       }
     };
-  }, [isAnimating]); 
+  }, [isAnimating]);
   useFrame(() => {
     if (isAnimating) {
-      const t = time *0.25* speed + offset;
-      console.log(time);
+      const t = time * 0.25 * speed + offset;
       const x = xRadius * Math.sin(t);
       const z = xRadius * Math.cos(t);
       planetRef.current.position.x = x;
@@ -220,7 +215,7 @@ function Planet({
       name,
       artists,
       is_explicit,
-      population
+      population,
     });
   };
 

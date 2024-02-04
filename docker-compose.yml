@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  api:
+    build:
+      context: "."
+      dockerfile: "./Dockerfile"
+    container_name: "frontend-in-space"
+    ports:
+      - "3000:3000"
+    networks:
+      - "spaceify"
+networks:
+  spaceify:
+    external: true
