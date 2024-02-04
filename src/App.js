@@ -10,6 +10,8 @@ import Header from "./components/Header/Header";
 import Bottomer from "./components/Bottomer/Bottomer";
 import dummyPlanetData from "./planetData";
 import Spotify from "./components/Spotify/Spotify";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 import tx1 from "./textures/1.jpg";
 import tx2 from "./textures/2.jpg";
@@ -43,6 +45,7 @@ export default function App() {
   const [planetData, setPlanetData] = useState("empty");
   const [onePlanetData, setOnePlanetData] = useState("empty");
   const audioRef = React.useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
 
   useEffect(() => {
@@ -69,21 +72,27 @@ export default function App() {
   };
 
   const handleSearch = async (spotifyLink) => {
+    setIsLoading(true);
     const postData = {
       url: spotifyLink,
     };
 
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(postData),
-    };
+    try {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postData),
+      };
+      
 
-    const res = await fetch("http://localhost:8000/spotify/playlist", options);
-    const json = await res.json();
-    setPlanetData(json.items);
+      const res = await fetch("http://localhost:8000/spotify/playlist", options);
+      const json = await res.json();
+      setPlanetData(json.items);
+  } finally {
+    setIsLoading(false);
+  }
   };
   if (planetData != "empty") {
     return (
@@ -118,6 +127,11 @@ export default function App() {
             <OrbitControls />
           </Suspense>
         </Canvas>
+        {isLoading && (
+      <div className="loading-container">
+    <CircularProgress />
+  </div>
+)}
         <Bottomer handleSearch={handleSearch}></Bottomer>
       </>
     );
@@ -134,6 +148,12 @@ export default function App() {
             <OrbitControls />
           </Suspense>
         </Canvas>
+        {isLoading && (
+  <div className="loading-container">
+    <CircularProgress />
+  </div>
+)}
+
         <Bottomer handleSearch={handleSearch}></Bottomer>
       </>
     );

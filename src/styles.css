@@ -153,3 +153,12 @@ svg {
 .cond {
   margin-top: 17%;
 }
+
+/* styles.css */
+.loading-container {
+  position: fixed; /* Fixed position */
+  top: 50%;       /* Center vertically */
+  left: 50%;      /* Center horizontally */
+  transform: translate(-50%, 60%); /* Adjust for exact centering */
+  z-index: 1000;  /* Ensure it's on top */
+}
