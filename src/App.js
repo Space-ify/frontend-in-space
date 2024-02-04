@@ -41,6 +41,7 @@ export default function App() {
   const [isAnimating, setIsAnimating] = useState(true);
   const [dialogData, setDialogData] = useState(null);
   const [planetData, setPlanetData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     console.log("Planet data has changed:", planetData);
@@ -73,7 +74,23 @@ export default function App() {
 
     const res = await fetch("http://localhost:8000/spotify/playlist", options);
     setPlanetData(res.items);
+    console.log("handle search called");
+    console.log("spotifyURL: ", spotifyLink);
+
+    try {
+      const response = await fetch(`http://localhost:8000/spotify/test`);
+      const json = await response.json();
+      console.log("response: ", json);
+      setPlanetData(json.items);
+      console.log("State Planet Variable", { planetData });
+
+      // Process your response data here
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+      // Handle error here
+    }
   };
+  
 
   if (planetData) {
     return (
@@ -108,6 +125,7 @@ export default function App() {
         </Canvas>
         <Bottomer handleSearch={handleSearch}></Bottomer>
       </>
+      
     );
   } else {
     return (
@@ -118,7 +136,6 @@ export default function App() {
         <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
           <Suspense fallback={null}>
             <Sun />
-
             <Lights />
             <OrbitControls />
           </Suspense>
@@ -127,6 +144,7 @@ export default function App() {
       </>
     );
   }
+  
 }
 function Sun() {
   const texture = useLoader(THREE.TextureLoader, sunTexture);
@@ -158,10 +176,31 @@ function Planet({
   setIsDialogVisible,
 }) {
   const planetRef = React.useRef();
+  const [time, setTime] = useState(0);
   const texture = useLoader(THREE.TextureLoader, tx1); //HARDCODED TEXTURE
-  useFrame(({ clock }) => {
+  useEffect(() => {
+    let interval;
+
     if (isAnimating) {
-      const t = clock.getElapsedTime() * speed + offset;
+      // Start the timer only if the animation is running
+      interval = setInterval(() => {
+        setTime(prevTime => prevTime + 0.01); // Update time
+      }, 10); // Adjust the interval as needed
+    } else {
+      // Clear the interval if the animation is not running
+      clearInterval(interval);
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval); // Clear the interval on cleanup
+      }
+    };
+  }, [isAnimating]); 
+  useFrame(() => {
+    if (isAnimating) {
+      const t = time *0.25* speed + offset;
+      console.log(time);
       const x = xRadius * Math.sin(t);
       const z = xRadius * Math.cos(t);
       planetRef.current.position.x = x;
@@ -176,7 +215,7 @@ function Planet({
     setIsDialogVisible(true);
   };
 
-  const hitboxSize = size * 1000;
+  const hitboxSize = size * 1000000;
 
   return (
     <>
@@ -193,7 +232,7 @@ function Planet({
         onClick={handlePlanetClick}
         visible={false} // Make the hitbox invisible
       >
-        <sphereGeometry args={[hitboxSize, 32, 32]} />
+        <sphereGeometry args={[hitboxSize, 200, 200]} />
         <meshStandardMaterial opacity={0} transparent />
       </mesh>
       <Ecliptic xRadius={xRadius} zRadius={zRadius} />
