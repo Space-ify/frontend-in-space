@@ -36,6 +36,7 @@ const shuffle = (a) => {
 const textures = shuffle([tx1, tx2, tx3, tx4, tx5, tx6]);
 
 export default function App() {
+  const [isAnimating, setIsAnimating] = useState(true);
   const [dialogData, setDialogData] = useState(null);
   const [planetData, setPlanetData] = useState([]);
 
@@ -47,7 +48,7 @@ export default function App() {
 
   const hideDialog = () => {
     setDialogData(null);
-    anim = true;
+    setIsAnimating(true);
   };
 
   const handleSearch = async (spotifyLink) => {
@@ -81,6 +82,8 @@ export default function App() {
                 planet={planet}
                 key={planet.id}
                 setDialogData={setDialogData}
+                isAnimating={isAnimating}
+                setIsAnimating={setIsAnimating}
               />
             ))}
             <Lights />
@@ -117,7 +120,6 @@ function Sun() {
     </mesh>
   );
 }
-let anim = true;
 function Planet({
   planet: {
     color,
@@ -134,11 +136,13 @@ function Planet({
     surfaceArea,
   },
   setDialogData,
+  isAnimating,
+  setIsAnimating
 }) {
   const planetRef = React.useRef();
   const texture = useLoader(THREE.TextureLoader, tx1); //HARDCODED TEXTURE
   useFrame(({ clock }) => {
-    if (anim) {
+    if (isAnimating) {
       const t = clock.getElapsedTime() * speed + offset;
       const x = xRadius * Math.sin(t);
       const z = xRadius * Math.cos(t);
@@ -148,20 +152,33 @@ function Planet({
     }
   });
 
+  const handlePlanetClick = () => {
+    setIsAnimating(false);
+    setDialogData({ name, gravity, orbitalPeriod, surfaceArea });
+  };
+
+  const hitboxSize = size * 1000;
+
   return (
     <>
       <mesh
         ref={planetRef}
-        onClick={() => {
-          anim = false;
-          setDialogData({ name, gravity, orbitalPeriod, surfaceArea });
-        }}
+        onClick={handlePlanetClick}
       >
         <sphereGeometry args={[size, 32, 32]} />
         <meshStandardMaterial map={texture} />
         <Html distanceFactor={15}>
           <div className="annotation">{name}</div>
         </Html>
+      </mesh>
+      {/* making the hitbox bigger */}
+      <mesh
+        position={planetRef.current ? planetRef.current.position : [0, 0, 0]}
+        onClick={handlePlanetClick}
+        visible={false} // Make the hitbox invisible
+      >
+        <sphereGeometry args={[hitboxSize, 32, 32]} />
+        <meshStandardMaterial opacity={0} transparent />
       </mesh>
       <Ecliptic xRadius={xRadius} zRadius={zRadius} />
     </>
