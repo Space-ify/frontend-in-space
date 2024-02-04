@@ -62,6 +62,22 @@ body {
   animation: fadeInUp 1s ease-in-out; /* Adjust duration as needed */
 }
 
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(20);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(50px); /* Adjust the value as needed */
+  }
+}
+
+.dialog-fade-out-down {
+  animation: fadeOutDown .8s ease-in-out forwards; /* 'forwards' will keep the final state after the animation */
+}
+
+
 
 .dialog {
   z-index: 999;
@@ -78,9 +94,7 @@ body {
   transform: translateY(0);
 }
 
-.dialog-fade-in-up {
-  background: rgb(0,0,0,0);
-}
+
 
 .dialog-header {
   font-family:'Courier New', Courier, monospace;
@@ -100,4 +114,12 @@ svg {
   font-family:'Courier New', Courier, monospace;
   margin-top: 12px;
   color: rgb(101, 212, 110);
+}
+
+.dialog-fade-in-up {
+  background: rgb(0,0,0,0);
+}
+
+.dialog-fade-out-down{
+  background-color:rgb(0, 0, 0, 0);
 }
