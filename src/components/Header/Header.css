@@ -12,14 +12,16 @@
 
   .logo {
 	
-	top: 1em;
-	right: 1em;
-	position: abosolute;
-	width: 5em;
-	height: 2.5em;
+	position: absolute;
+	top: 0%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+	width: 25em;
+	height: 5em;
   }
 
   .headerContainer {
 	display: flex;
-	flex-direction: row;
+	
+	justify-content: center;
   }
