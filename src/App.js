@@ -41,7 +41,6 @@ export default function App() {
   const [isAnimating, setIsAnimating] = useState(true);
   const [dialogData, setDialogData] = useState(null);
   const [planetData, setPlanetData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     console.log("Planet data has changed:", planetData);
