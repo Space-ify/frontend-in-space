@@ -10,7 +10,8 @@ import Header from "./components/Header/Header";
 import Bottomer from "./components/Bottomer/Bottomer";
 import dummyPlanetData from "./planetData";
 import Spotify from "./components/Spotify/Spotify";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 import tx1 from "./textures/1.jpg";
 import tx2 from "./textures/2.jpg";
@@ -46,6 +47,7 @@ export default function App() {
   const audioRef = React.useRef(null);
   const [isLoading, setIsLoading] = useState(false);
 
+
   useEffect(() => {
     // Any additional logic you want to run when planetData changes
   }, [planetData]);
@@ -60,6 +62,7 @@ export default function App() {
     }
     // Add the fade-out animation class
     setIsDialogVisible(false);
+    
 
     // Wait for the animation to complete before actually hiding the dialog
     setTimeout(() => {
@@ -82,16 +85,14 @@ export default function App() {
         },
         body: JSON.stringify(postData),
       };
+      
 
-      const res = await fetch(
-        "http://space.spaceify.co/api/spotify/playlist",
-        options,
-      );
+      const res = await fetch("http://localhost:8000/api/spotify/playlist", options);
       const json = await res.json();
       setPlanetData(json.items);
-    } finally {
-      setIsLoading(false);
-    }
+  } finally {
+    setIsLoading(false);
+  }
   };
   if (planetData != "empty") {
     return (
@@ -127,10 +128,10 @@ export default function App() {
           </Suspense>
         </Canvas>
         {isLoading && (
-          <div className="loading-container">
-            <CircularProgress />
-          </div>
-        )}
+      <div className="loading-container">
+    <CircularProgress />
+  </div>
+)}
         <Bottomer handleSearch={handleSearch}></Bottomer>
       </>
     );
@@ -148,10 +149,10 @@ export default function App() {
           </Suspense>
         </Canvas>
         {isLoading && (
-          <div className="loading-container">
-            <CircularProgress />
-          </div>
-        )}
+  <div className="loading-container">
+    <CircularProgress />
+  </div>
+)}
 
         <Bottomer handleSearch={handleSearch}></Bottomer>
       </>
@@ -184,7 +185,7 @@ function Planet({
     population,
     image_url,
     album,
-    preview,
+    preview
   },
   setDialogData,
   setOnePlanetData,
@@ -192,7 +193,7 @@ function Planet({
   setIsAnimating,
   setIsDialogVisible,
   planet,
-  audioRef,
+  audioRef
 }) {
   const planetRef = React.useRef();
   const [time, setTime] = useState(0);
@@ -237,7 +238,7 @@ function Planet({
       is_explicit,
       population,
       album,
-      preview,
+      preview
     });
     setOnePlanetData({ name, artists, image_url });
     if (audioRef.current) {
@@ -247,9 +248,7 @@ function Planet({
     if (preview) {
       console.log("Playing music from URL: ", preview);
       audioRef.current = new Audio(preview);
-      audioRef.current
-        .play()
-        .catch((e) => console.error("Error playing audio: ", e));
+      audioRef.current.play().catch(e => console.error("Error playing audio: ", e));
     } else {
       console.log("No music preview available for this planet");
     }
