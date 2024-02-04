@@ -11,6 +11,8 @@ import Bottomer from "./components/Bottomer/Bottomer";
 import dummyPlanetData from "./planetData";
 import Spotify from "./components/Spotify/Spotify";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Helmet } from 'react-helmet';
+import logo from "./photos/just-logo.png";
 
 
 import tx1 from "./textures/1.jpg";
@@ -47,6 +49,10 @@ export default function App() {
   const audioRef = React.useRef(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    document.title = "Spaceify";
+  }, []);
+  
 
   useEffect(() => {
     // Any additional logic you want to run when planetData changes
@@ -63,7 +69,19 @@ export default function App() {
     // Add the fade-out animation class
     setIsDialogVisible(false);
     
-
+    const MyComponent = () => {
+      return (
+        <div>
+          <Helmet>
+            <meta property="og:image" content={logo} />
+            <meta property="og:title" content="Spaceify" />
+            <title>Spaceify</title>
+          </Helmet>
+          {/* Rest of your component */}
+        </div>
+      );
+    };
+    
     // Wait for the animation to complete before actually hiding the dialog
     setTimeout(() => {
       setDialogData(null);
@@ -87,7 +105,7 @@ export default function App() {
       };
       
 
-      const res = await fetch("http://localhost:8000/spotify/playlist", options);
+      const res = await fetch("http://space.spaceify.co/api/spotify/playlist", options);
       const json = await res.json();
       setPlanetData(json.items);
   } finally {
