@@ -42,6 +42,8 @@ export default function App() {
   const [dialogData, setDialogData] = useState(null);
   const [planetData, setPlanetData] = useState([]);
 
+
+  
   useEffect(() => {
     console.log("Planet data has changed:", planetData);
 
@@ -176,7 +178,8 @@ function Planet({
 }) {
   const planetRef = React.useRef();
   const [time, setTime] = useState(0);
-  const texture = useLoader(THREE.TextureLoader, tx1); //HARDCODED TEXTURE
+  const imageUrl = `data:image/png;base64,${textureMap}`;
+  const texture = useLoader(THREE.TextureLoader, imageUrl); //HARDCODED TEXTURE
   useEffect(() => {
     let interval;
 
