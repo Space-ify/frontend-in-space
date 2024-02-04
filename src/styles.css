@@ -100,13 +100,12 @@ body {
   z-index: 999999999999999999999999999999999999999999999999999;
   width: 30vw;
   height: 80vh;
-  background: rgb(28, 28, 28);
+  background: rgb(28, 28, 28, 100);
   position: fixed;
   right: 0%;
   top: 20%;
   /* transform: translateY(-55%); */
   border-radius: 10px;
-  color: aliceblue;
   padding: 8px;
   transform: translateY(0);
   font-family:'Courier New', Courier, monospace;
@@ -119,11 +118,12 @@ body {
   font-family:'Courier New', Courier, monospace;
   color: rgb(101, 212, 110);
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   font-size: 1.25rem;
   font-weight: bold;
-  margin-bottom: 16px;
+  margin-top: 90px;
+  padding: 0;
   z-index: 999999999999999999999999999999999999999999999999999;
 }
 svg {

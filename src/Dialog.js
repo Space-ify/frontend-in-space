@@ -1,4 +1,5 @@
 import React from "react";
+import dangerpng from "../src/danger.png";
 
 export default function Dialog({ hideDialog, dialogData, className }) {
   if (!dialogData) {
@@ -28,8 +29,13 @@ export default function Dialog({ hideDialog, dialogData, className }) {
       <div className={`dialog ${dialogData ? "visible" : ""}`}>
       {/* Display other data */}
       <p>Artist: {dialogData.artists}</p>
-      <p>DANGER: {dialogData.is_explicit ? "true" : "false"}</p>
       <p>Population: {dialogData.population}</p>
+      <p>DANGER: {dialogData.is_explicit ? "true" : "false"}</p>
+      <img
+              src={dangerpng}
+              style={{ width: "4em", height: "4em" }}
+              alt="Album cover"
+            />
     </div>
     </div>
     </div>
