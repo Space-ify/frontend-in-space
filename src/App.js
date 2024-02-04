@@ -9,6 +9,7 @@ import "./styles.css";
 import Header from "./components/Header/Header";
 import Bottomer from "./components/Bottomer/Bottomer";
 import dummyPlanetData from "./planetData";
+import Spotify from "./components/Spotify/Spotify";
 
 import tx1 from "./textures/1.jpg";
 import tx2 from "./textures/2.jpg";
@@ -18,7 +19,6 @@ import tx5 from "./textures/5.jpg";
 import tx6 from "./textures/6.jpg";
 
 const totalPlanets = 6;
-
 
 const random = (a, b) => a + Math.random() * b;
 const randomInt = (a, b) => Math.floor(random(a, b));
@@ -75,11 +75,12 @@ export default function App() {
   if (planetData) {
     return (
       <>
+        <Spotify></Spotify>
         <Header></Header>
-        <Dialog 
-        hideDialog={hideDialog} 
-        dialogData={dialogData} 
-        className={isDialogVisible ? 'dialog dialog-fade-in-up' : 'dialog'}
+        <Dialog
+          hideDialog={hideDialog}
+          dialogData={dialogData}
+          className={isDialogVisible ? "dialog dialog-fade-in-up" : "dialog"}
         />
         <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
           <Suspense fallback={null}>
@@ -104,6 +105,7 @@ export default function App() {
   } else {
     return (
       <>
+        <Spotify></Spotify>
         <Header></Header>
         <Dialog hideDialog={hideDialog} dialogData={dialogData} />
         <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
@@ -146,7 +148,7 @@ function Planet({
   setDialogData,
   isAnimating,
   setIsAnimating,
-  setIsDialogVisible
+  setIsDialogVisible,
 }) {
   const planetRef = React.useRef();
   const texture = useLoader(THREE.TextureLoader, tx1); //HARDCODED TEXTURE
@@ -171,10 +173,7 @@ function Planet({
 
   return (
     <>
-      <mesh
-        ref={planetRef}
-        onClick={handlePlanetClick}
-      >
+      <mesh ref={planetRef} onClick={handlePlanetClick}>
         <sphereGeometry args={[size, 32, 32]} />
         <meshStandardMaterial map={texture} />
         <Html distanceFactor={15}>

@@ -1,0 +1,65 @@
+.spotify-container {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	top: 85%;
+	justify-content: center;
+	align-items: center;
+	z-index: 20000;
+  }
+  
+  .spotify-container p {
+	margin: 0;
+  }
+  
+  .spotify-container .listening {
+	display: flex;
+	align-items: center;
+  }
+  
+  .spotify-container .listening p {
+	font-style: italic;
+	margin-bottom: 3%;
+  }
+  
+  .spotify {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	height: 50%;
+	width: 100%;
+	margin-left: 1vh;
+  }
+  
+  .spotify .image {
+	display: flex;
+	height: 100%;
+	aspect-ratio: 1/1;
+	justify-content: center;
+  }
+  
+  .spotify .text {
+	display: flex;
+	flex-direction: column;
+	margin-left: 0.75vh;
+	justify-content: center;
+	overflow: hidden;
+  }
+  
+  .spotify .text p {
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+  }
+  
+  .spotify .artist {
+	color: #8b8686;
+	font-size: 80%;
+  }
+  
+  .spotify .name {
+	font-weight: bold;
+	text-overflow: ellipsis;
+  }
