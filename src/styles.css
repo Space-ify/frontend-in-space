@@ -109,6 +109,8 @@ body {
   color: aliceblue;
   padding: 8px;
   transform: translateY(0);
+  font-family:'Courier New', Courier, monospace;
+  color: rgb(101, 212, 110);
 }
 
 

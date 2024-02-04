@@ -25,9 +25,12 @@ export default function Dialog({ hideDialog, dialogData, className }) {
           />
         </svg>
       </div>
-      <div className="details">Gravity: {gravity} m/s²</div>
-      <div className="details">Orbital period: {orbitalPeriod} days</div>
-      <div className="details">Surface area: {surfaceArea} million km²</div>
+      <div className={`dialog ${dialogData ? "visible" : ""}`}>
+      {/* Display other data */}
+      <p>Artist: {dialogData.artists}</p>
+      <p>DANGER: {dialogData.is_explicit ? "true" : "false"}</p>
+      <p>Population: {dialogData.population}</p>
+    </div>
     </div>
     </div>
   );

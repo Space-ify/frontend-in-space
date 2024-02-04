@@ -43,6 +43,7 @@ export default function App() {
   const [planetData, setPlanetData] = useState([]);
 
 
+
   
   useEffect(() => {
     console.log("Planet data has changed:", planetData);
@@ -74,23 +75,23 @@ export default function App() {
     };
 
     const res = await fetch("http://localhost:8000/spotify/playlist", options);
-    setPlanetData(res.items);
-    console.log("handle search called");
-    console.log("spotifyURL: ", spotifyLink);
-
-    try {
-      const response = await fetch(`http://localhost:8000/spotify/test`);
-      const json = await response.json();
-      console.log("response: ", json);
-      setPlanetData(json.items);
-      console.log("State Planet Variable", { planetData });
-
-      // Process your response data here
-    } catch (error) {
-      console.error("Error fetching data: ", error);
-      // Handle error here
-    }
+    const json = await res.json();
+    setPlanetData(json.items);
+    console.log("CHECK JSON ATTRIBUTES", json.items);
   };
+
+    // try {
+    //   const response = await fetch(`http://localhost:8000/spotify/test`);
+    //   const json = await response.json();
+    //   console.log("response: ", json);
+    //   setPlanetData(json.items);
+    //   console.log("State Planet Variable", { planetData });
+
+    //   // Process your response data here
+    // } catch (error) {
+    //   console.error("Error fetching data: ", error);
+    //   // Handle error here
+    // }
   
 
   if (planetData) {
@@ -167,9 +168,10 @@ function Planet({
     rotationSpeed,
     textureMap,
     name,
-    gravity,
-    orbitalPeriod,
+    artists,
+    is_explicit,
     surfaceArea,
+    population
   },
   setDialogData,
   isAnimating,
@@ -212,9 +214,14 @@ function Planet({
   });
 
   const handlePlanetClick = () => {
-    setIsAnimating(false);
-    setDialogData({ name, gravity, orbitalPeriod, surfaceArea });
     setIsDialogVisible(true);
+    setIsAnimating(false);
+    setDialogData({
+      name,
+      artists,
+      is_explicit,
+      population
+    });
   };
 
   const hitboxSize = size * 1000000;
