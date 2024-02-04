@@ -1,0 +1,27 @@
+.header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center; /* Center content vertically */
+	align-items: center; /* Center content horizontally */
+	color: white;
+	padding: 1em; /* Add some padding */
+	font-family: 'Arial', sans-serif; /* Use a modern font */
+	font-size: 24px; /* Adjust font size as needed */
+	font-weight: bold; /* Optional: Make the font bold */
+  }
+
+  .logo {
+	
+	position: absolute;
+	top: 0%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+	width: 25em;
+	height: 5em;
+  }
+
+  .headerContainer {
+	display: flex;
+	
+	justify-content: center;
+  }

@@ -1,0 +1,12 @@
+.mainContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 1em;
+	background-color: #262722;
+}
+
+.submit {
+	min-width: 3em;
+	min-height: 3em;
+}
