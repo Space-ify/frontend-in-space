@@ -10,7 +10,7 @@ export default function Dialog({ hideDialog, dialogData, className }) {
     <div className = {className}>
     <div className="dialog">
       <div className="dialog-header">
-        <div className="">{name}</div>
+        <div className="songtitle">{name}</div>
         <svg
           onClick={hideDialog}
           width="24px"
@@ -29,13 +29,13 @@ export default function Dialog({ hideDialog, dialogData, className }) {
       <div className={`dialog ${dialogData ? "visible" : ""}`}>
       {/* Display other data */}
       <p>Artist: {dialogData.artists}</p>
+      <p>Album: {dialogData.album}</p>
       <p>Population: {dialogData.population}</p>
-      <p>DANGER: {dialogData.is_explicit ? "true" : "false"}</p>
-      <img
-              src={dangerpng}
-              style={{ width: "4em", height: "4em" }}
-              alt="Album cover"
-            />
+      <p>Preview: {dialogData.preview ? "Available" : "Not available"}</p>
+      <p className="cond">Condition: {dialogData.is_explicit ? "Explicit" : "Clear"}</p>
+      {dialogData.is_explicit && (
+        <img src={dangerpng} style={{ width: "4em", height: "4em" }} alt="Danger indicator" />
+      )}
     </div>
     </div>
     </div>

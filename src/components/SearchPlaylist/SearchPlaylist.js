@@ -15,12 +15,12 @@ const SearchComponent = ({ handleSearch }) => {
   return (
     <Box
       style={{
-        marginBottom: "2.5em",
+        marginBottom: ".5em",
       }}
       sx={{
         position: "fixed",
         bottom: 0,
-        left: 0,
+        left: 75,
         right: 0,
         display: "flex",
         justifyContent: "center",

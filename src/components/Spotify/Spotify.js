@@ -7,16 +7,6 @@ const Spotify = ({ onePlanetData }) => {
   const [spotifyData, setSpotifyData] = useState("empty");
 
   const [albumCover, setAlbumCover] = useState(spotify);
-  console.log("PLANET DATAAAAAAA PLEASE", onePlanetData);
-  console.log("PLANET DATAAAAAAA TYPE", typeof onePlanetData);
-  console.log("PLANET DATAAAAAAA TYPE", typeof "empty");
-
-  if (onePlanetData === "empty") {
-    console.log("NO PLANETS");
-  } else {
-    console.log("000000000000000000000", onePlanetData);
-    console.log("PLANETSSSSS");
-  }
 
   const domain = process.env.REACT_APP_DOMAIN;
   // const url = `${domain}/api/spotify/now-playing`;

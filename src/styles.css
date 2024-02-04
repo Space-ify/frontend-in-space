@@ -110,6 +110,7 @@ body {
   transform: translateY(0);
   font-family:'Courier New', Courier, monospace;
   color: rgb(101, 212, 110);
+  text-align: center;
 }
 
 
@@ -124,6 +125,7 @@ body {
   font-weight: bold;
   margin-top: 80px;
   padding: 0;
+  text-align: center;
   z-index: 999999999999999999999999999999999999999999999999999;
 }
 svg {
@@ -146,4 +148,8 @@ svg {
 }
 .logo {
   z-index: 999999999999999999999999999999999999999999999999999999999999;
+}
+
+.cond {
+  margin-top: 17%;
 }

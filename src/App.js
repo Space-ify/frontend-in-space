@@ -42,21 +42,24 @@ export default function App() {
   const [dialogData, setDialogData] = useState(null);
   const [planetData, setPlanetData] = useState("empty");
   const [onePlanetData, setOnePlanetData] = useState("empty");
+  const audioRef = React.useRef(null);
+
 
   useEffect(() => {
-    console.log("Planet data has changed:", planetData);
-
     // Any additional logic you want to run when planetData changes
   }, [planetData]);
 
   useEffect(() => {
-    console.log("onePlanetData has changed:", onePlanetData);
     // You can perform other actions here if needed when onePlanetData changes
   }, [onePlanetData]);
 
   const hideDialog = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
     // Add the fade-out animation class
     setIsDialogVisible(false);
+    
 
     // Wait for the animation to complete before actually hiding the dialog
     setTimeout(() => {
@@ -69,7 +72,6 @@ export default function App() {
     const postData = {
       url: spotifyLink,
     };
-    console.log(postData);
 
     const options = {
       method: "POST",
@@ -82,24 +84,8 @@ export default function App() {
     const res = await fetch("http://localhost:8000/spotify/playlist", options);
     const json = await res.json();
     setPlanetData(json.items);
-    console.log("CHECK JSON ATTRIBUTES", json.items);
   };
-
-  // try {
-  //   const response = await fetch(`http://localhost:8000/spotify/test`);
-  //   const json = await response.json();
-  //   console.log("response: ", json);
-  //   setPlanetData(json.items);
-  //   console.log("State Planet Variable", { planetData });
-
-  //   // Process your response data here
-  // } catch (error) {
-  //   console.error("Error fetching data: ", error);
-  //   // Handle error here
-  // }
-
   if (planetData != "empty") {
-    console.log("PLANET CASE ---------------", onePlanetData);
     return (
       <>
         <Spotify onePlanetData={onePlanetData}></Spotify>
@@ -125,6 +111,7 @@ export default function App() {
                 isAnimating={isAnimating}
                 setIsAnimating={setIsAnimating}
                 setIsDialogVisible={setIsDialogVisible} // for animation
+                audioRef={audioRef}
               />
             ))}
             <Lights />
@@ -135,7 +122,6 @@ export default function App() {
       </>
     );
   } else {
-    console.log("EMPTY CASE ---------------");
     return (
       <>
         <Spotify onePlanetData="empty"></Spotify>
@@ -178,14 +164,17 @@ function Planet({
     surfaceArea,
     population,
     image_url,
+    album,
+    preview
   },
   setDialogData,
   setOnePlanetData,
   isAnimating,
   setIsAnimating,
   setIsDialogVisible,
+  planet,
+  audioRef
 }) {
-  console.log("------------------- image url", image_url);
   const planetRef = React.useRef();
   const [time, setTime] = useState(0);
   const imageUrl = `data:image/png;base64,${textureMap}`;
@@ -220,7 +209,6 @@ function Planet({
       planetRef.current.rotation.y += rotationSpeed;
     }
   });
-
   const handlePlanetClick = () => {
     setIsDialogVisible(true);
     setIsAnimating(false);
@@ -229,8 +217,21 @@ function Planet({
       artists,
       is_explicit,
       population,
+      album,
+      preview
     });
     setOnePlanetData({ name, artists, image_url });
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = null;
+    }
+    if (preview) {
+      console.log("Playing music from URL: ", preview);
+      audioRef.current = new Audio(preview);
+      audioRef.current.play().catch(e => console.error("Error playing audio: ", e));
+    } else {
+      console.log("No music preview available for this planet");
+    }
   };
 
   const hitboxSize = size * 1000000;
