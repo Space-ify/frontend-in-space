@@ -19,6 +19,7 @@ import tx6 from "./textures/6.jpg";
 
 const totalPlanets = 6;
 
+
 const random = (a, b) => a + Math.random() * b;
 const randomInt = (a, b) => Math.floor(random(a, b));
 const randomColor = () =>
@@ -36,6 +37,7 @@ const shuffle = (a) => {
 const textures = shuffle([tx1, tx2, tx3, tx4, tx5, tx6]);
 
 export default function App() {
+  const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
   const [dialogData, setDialogData] = useState(null);
   const [planetData, setPlanetData] = useState([]);
@@ -49,6 +51,7 @@ export default function App() {
   const hideDialog = () => {
     setDialogData(null);
     setIsAnimating(true);
+    setIsDialogVisible(false);
   };
 
   const handleSearch = async (spotifyLink) => {
@@ -73,7 +76,11 @@ export default function App() {
     return (
       <>
         <Header></Header>
-        <Dialog hideDialog={hideDialog} dialogData={dialogData} />
+        <Dialog 
+        hideDialog={hideDialog} 
+        dialogData={dialogData} 
+        className={isDialogVisible ? 'dialog dialog-fade-in-up' : 'dialog'}
+        />
         <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
           <Suspense fallback={null}>
             <Sun />
@@ -84,6 +91,7 @@ export default function App() {
                 setDialogData={setDialogData}
                 isAnimating={isAnimating}
                 setIsAnimating={setIsAnimating}
+                setIsDialogVisible={setIsDialogVisible} // for animation
               />
             ))}
             <Lights />
@@ -137,7 +145,8 @@ function Planet({
   },
   setDialogData,
   isAnimating,
-  setIsAnimating
+  setIsAnimating,
+  setIsDialogVisible
 }) {
   const planetRef = React.useRef();
   const texture = useLoader(THREE.TextureLoader, tx1); //HARDCODED TEXTURE
@@ -155,6 +164,7 @@ function Planet({
   const handlePlanetClick = () => {
     setIsAnimating(false);
     setDialogData({ name, gravity, orbitalPeriod, surfaceArea });
+    setIsDialogVisible(true);
   };
 
   const hitboxSize = size * 1000;

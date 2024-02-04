@@ -1,11 +1,12 @@
 import React from "react";
 
-export default function Dialog({ hideDialog, dialogData }) {
+export default function Dialog({ hideDialog, dialogData, className }) {
   if (!dialogData) {
     return null;
   }
   const { name, gravity, orbitalPeriod, surfaceArea } = dialogData;
   return (
+    <div className = {className}>
     <div className="dialog">
       <div className="dialog-header">
         <div className="">{name}</div>
@@ -27,6 +28,7 @@ export default function Dialog({ hideDialog, dialogData }) {
       <div className="details">Gravity: {gravity} m/s²</div>
       <div className="details">Orbital period: {orbitalPeriod} days</div>
       <div className="details">Surface area: {surfaceArea} million km²</div>
+    </div>
     </div>
   );
 }

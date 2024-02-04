@@ -34,32 +34,57 @@ body {
 .annotation {
   /* transform: translate3d(-50%, -150%, 0); */
   /* text-align: left; */
-  background: #0e0e55;
-  color: rgb(189, 255, 197);
+  background: rgb(28, 28, 28);
+  color: rgb(101, 212, 110);
   padding: 4px;
-  border-radius: 10px;
+  border-radius: 100px;
   font-size: 1.5rem;
   margin-top: 50px;
   margin-left: -50px;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
+  font-family:'Courier New', Courier, monospace;
 }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px); /* Adjust as needed */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.dialog-fade-in-up {
+  animation: fadeInUp 1s ease-in-out; /* Adjust duration as needed */
+}
+
 
 .dialog {
   z-index: 999;
   width: 30vw;
   height: 80vh;
-  background: rgba(88, 88, 207, 0.5);
+  background: rgb(28, 28, 28);
   position: fixed;
-  right: 2%;
-  top: 50%;
-  transform: translateY(-55%);
-  border-bottom-left-radius: 10px;
+  right: 0%;
+  top: 20%;
+  /* transform: translateY(-55%); */
+  border-radius: 10px;
   color: aliceblue;
   padding: 8px;
+  transform: translateY(0);
 }
+
+.dialog-fade-in-up {
+  background: rgb(0,0,0,0);
+}
+
 .dialog-header {
+  font-family:'Courier New', Courier, monospace;
+  color: rgb(101, 212, 110);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -68,8 +93,11 @@ body {
   margin-bottom: 16px;
 }
 svg {
+  
   cursor: pointer;
 }
 .details {
+  font-family:'Courier New', Courier, monospace;
   margin-top: 12px;
+  color: rgb(101, 212, 110);
 }
