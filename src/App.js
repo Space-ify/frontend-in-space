@@ -140,16 +140,10 @@ function Planet({
   setIsAnimating,
 }) {
   const planetRef = React.useRef();
+  const imageUrl = `data:image/png;base64,${textureMap}`;
+  const texture = useLoader(THREE.TextureLoader, imageUrl);
 
-  console.log("textureMap: ", textureMap);
-  const imageBlob = textureMap.blob();
-  console.log("imageBlob", imageBlob);
-  const imageObjectUrl = URL.createObjectURL(imageBlob);
-  console.log("imageObjectUrl", imageObjectUrl);
-  console.log("type of ObjectUrl", typeof imageObjectUrl);
-  const texture = useLoader(THREE.TextureLoader, imageObjectUrl);
-
-  //const texture = useLoader(THREE.TextureLoader, tx1); //HARDCODED TEXTURE
+  // const texture = useLoader(THREE.TextureLoader, tx1); //HARDCODED TEXTURE
   useFrame(({ clock }) => {
     if (isAnimating) {
       const t = clock.getElapsedTime() * speed + offset;
