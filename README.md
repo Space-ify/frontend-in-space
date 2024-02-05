@@ -29,5 +29,3 @@ React rendering issues, it can get very complicated with states not doing what y
 Josh did an amazing job implementing a very math heavy AI generation of planet textures from the spotify album art. We learned a ton about react and were super happy with the visual. Overally, it was amazing to see everything come together and learn so much in such a short period of time. 
 ## What we learned
 Communication is key, task delegation is extremely important and no single one of us could have accomplished this on our own. 
-## What's next for Spaceify
-I would really like the AWS containers to be built with Terraform in the future. 
