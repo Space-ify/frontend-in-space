@@ -1,5 +1,5 @@
 
-<img width="900" alt="SpaceifyWorkflow" src="https://github.com/uabhacks-at-auhacks24/frontend-in-space/assets/107063397/50a332db-bd1b-470b-a393-54eab785d7bc">
+<img width="900" alt="SpaceifyWorkflow" src="https://github.com/uabhacks-at-auhacks24/frontend-in-space/assets/107063397/9a16df09-0a64-4e8c-a322-6b1abb6e70c8">
 
 Website URL: ```http://space.spaceify.co/```
 
