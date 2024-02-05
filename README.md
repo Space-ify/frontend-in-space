@@ -2,12 +2,12 @@
 
 ## **Built in 24 hours** - Auburn Hackathon 2024 Submission - Hackathon Theme: Space
 
-### React web app hosted on AWS EC2 that allows users to dynamically populate 3d rendering of playlists as a solar system. Song metadata determines factors of the planet like size, speed, and rotation. Employs computer vision to map album art palette to planet color gradient. Utilizes Docker to host the backend, frontend, and NGINX. 
+### React web app hosted on AWS EC2 that allows users to dynamically populate 3d rendering of playlists as a solar system. Song metadata determines factors of the planet like size, speed, and rotation. Users can click on planets to hear 30 second snippets of the song that planet represents. Employs computer vision to map album art palette to planet color gradient. Utilizes Docker to host the backend, frontend, and NGINX. 
 <img width="900" alt="SpaceifyWorkflow" src="https://github.com/uabhacks-at-auhacks24/frontend-in-space/assets/107063397/9a16df09-0a64-4e8c-a322-6b1abb6e70c8">
 
 Website URL: ```http://space.spaceify.co/```
 
-![spacify-gif](https://github.com/mfkimbell/dummmmmy/assets/107063397/86b924ac-0f93-43d8-ab9e-08e822567781)
+<img src="https://github.com/mfkimbell/dummmmmy/assets/107063397/86b924ac-0f93-43d8-ab9e-08e822567781" width="900" height="550"/>
 
 ### **Tools Used:**
 * `React` For rendering jsx elements and creating UI
