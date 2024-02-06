@@ -26,7 +26,7 @@ Website URL: ```http://space.spaceify.co/```
 ![Loading](https://github.com/Space-ify/frontend-in-space/assets/107063397/5ea6dba6-67d8-43fb-98c4-fecaa5b9366b)
 ## Planet Motion
 ![PlanetSpin](https://github.com/Space-ify/frontend-in-space/assets/107063397/ba1087f1-4d48-4152-a76d-ce16109b5bc6)
-## Planet Selection
+## Planet Selection (no audio in gif, but tracks are being played)
 ![MusicSelect](https://github.com/Space-ify/frontend-in-space/assets/107063397/0238ac7f-69f2-49e3-a390-5fb8fccf889b)
 ## Dynamic Input (100 songs)
 ![100planets](https://github.com/Space-ify/frontend-in-space/assets/107063397/694a9241-6974-422b-ab05-a9f27338ce91)
