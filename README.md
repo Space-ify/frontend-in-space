@@ -28,6 +28,8 @@ Website URL: ```http://space.spaceify.co/```
 ![PlanetSpin](https://github.com/Space-ify/frontend-in-space/assets/107063397/ba1087f1-4d48-4152-a76d-ce16109b5bc6)
 ## Planet Selection
 ![MusicSelect](https://github.com/Space-ify/frontend-in-space/assets/107063397/0238ac7f-69f2-49e3-a390-5fb8fccf889b)
+## Dynamic Input (100 songs)
+![100planets](https://github.com/Space-ify/frontend-in-space/assets/107063397/694a9241-6974-422b-ab05-a9f27338ce91)
 
 
 
