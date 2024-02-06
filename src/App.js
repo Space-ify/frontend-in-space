@@ -101,7 +101,7 @@ export default function App() {
       };
 
       const res = await fetch(
-        "http://localhost:8000/api/spotify/playlist",
+        "http://space.spaceify.co/api/spotify/playlist",
         options,
       );
 
