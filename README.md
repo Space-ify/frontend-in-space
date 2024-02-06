@@ -22,6 +22,15 @@ Website URL: ```http://space.spaceify.co/```
 * `FastAPI` Python api for querying spotify api and returning data to the frontend
 * `Spotify` We used their API to recieve meta data about playlists for planet manipulation
 
+## Loading Playlist
+![Loading](https://github.com/Space-ify/frontend-in-space/assets/107063397/5ea6dba6-67d8-43fb-98c4-fecaa5b9366b)
+## Planet Motion
+![PlanetSpin](https://github.com/Space-ify/frontend-in-space/assets/107063397/ba1087f1-4d48-4152-a76d-ce16109b5bc6)
+## Planet Selection
+![MusicSelect](https://github.com/Space-ify/frontend-in-space/assets/107063397/0238ac7f-69f2-49e3-a390-5fb8fccf889b)
+
+
+
 ## Inspiration
 We saw a project that procedurally generated a topographical map based on bit data from Spotify. Instead, we thought a song representing each celestial body would be more theme-driven. 
 ## What it does
