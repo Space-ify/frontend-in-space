@@ -31,7 +31,83 @@ Website URL: ```http://space.spaceify.co/```
 ## Dynamic Input (100 songs)
 ![100planets](https://github.com/Space-ify/frontend-in-space/assets/107063397/694a9241-6974-422b-ab05-a9f27338ce91)
 
+## Data Flow
+* Our frontend makes a fetch to the API
+``` Python
+const res = await fetch(
+        "http://localhost:8000/api/spotify/playlist",
+        options
+      );
+```
+* First, we have to use our Spotify developer account to retrieve an authorization token that allows for access to the spotify API
+```Python
+    def generate_authorization_token(self) -> str:
+        """ """
+        url = "https://accounts.spotify.com/api/token"
+        payload = {
+            "grant_type": "client_credentials",
+            "client_id": self.CLIENT_ID,
+            "client_secret": self.CLIENT_SECRET,
+        }
+        headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
+        try:
+            response = requests.post(url, data=payload, headers=headers)
+            response.raise_for_status()  # Raise an exception if there's an HTTP error
+            self.access_token = response.json().get("access_token")
+            return self.access_token
+        except requests.exceptions.RequestException as e:
+            print(f"Error making request: {e}")
+            return None
+```
+* After we are authenticated, we can query Spotify and retrieve back the playlist data
+``` Python
+@spotify_router.post("/api/spotify/playlist")
+async def get_playlist(request: Request):
+    spotify.auth.generate_authorization_token()
+
+    res = await request.json()
+    assert res.get("url")
+
+    url = res.get("url")
+
+    ID = re.search(r"/playlist/([^?]+)", url.get("query"))
+    if ID:
+        ID = ID.group(1)
+
+    bearer_token = f"Bearer {spotify.auth.access_token}"
+    headers = {"Authorization": bearer_token}
+
+    playlist = Endpoints.PLAYLIST.value
+    playlist = f"{playlist.PLAYLIST.value}/{ID}"
+
+    res = requests.get(playlist, headers=headers)
+
+    try:
+        t = Transformer(res.json())
+        return {"items": t.tracklist}
+    except:
+        return {"message": "Error parsing tracks."}
+```
+* We then transform that data and map it to a planet, along with other transformations not shown
+``` Python
+      track_as_dict = {
+            "id": i,
+            "size": size,
+            "speed": speed,
+            "name": name,
+            "artists": artist_name,
+            "textureMap": textureMap,
+            "rotationSpeed": (random.randrange(15000, 25000) / 1000000),
+            "offset": random.randint(0, 100),
+            "xRadius": (i * 4) + 6,
+            "is_explicit": is_explicit,
+            "population": population,
+            "preview": preview,
+            "image_url": album_img,
+            "album": album,
+        }
+```
 
 ## Inspiration
 We saw a project that procedurally generated a topographical map based on bit data from Spotify. Instead, we thought a song representing each celestial body would be more theme-driven. 
