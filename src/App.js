@@ -3,17 +3,14 @@ import Dialog from "./Dialog";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls, Html } from "@react-three/drei";
 import * as THREE from "three";
-import planetData from "./planetData";
 import sunTexture from "./textures/sun.jpg";
 import "./styles.css";
 import Header from "./components/Header/Header";
 import Bottomer from "./components/Bottomer/Bottomer";
-import dummyPlanetData from "./planetData";
 import Spotify from "./components/Spotify/Spotify";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Helmet } from 'react-helmet';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { Helmet } from "react-helmet";
 import logo from "./photos/just-logo.png";
-
 
 import tx1 from "./textures/1.jpg";
 import tx2 from "./textures/2.jpg";
@@ -52,7 +49,6 @@ export default function App() {
   useEffect(() => {
     document.title = "Spaceify";
   }, []);
-  
 
   useEffect(() => {
     // Any additional logic you want to run when planetData changes
@@ -68,7 +64,7 @@ export default function App() {
     }
     // Add the fade-out animation class
     setIsDialogVisible(false);
-    
+
     const MyComponent = () => {
       return (
         <div>
@@ -81,7 +77,7 @@ export default function App() {
         </div>
       );
     };
-    
+
     // Wait for the animation to complete before actually hiding the dialog
     setTimeout(() => {
       setDialogData(null);
@@ -103,14 +99,19 @@ export default function App() {
         },
         body: JSON.stringify(postData),
       };
-      
 
-      const res = await fetch("http://space.spaceify.co/api/spotify/playlist", options);
+      const res = await fetch(
+        "http://localhost:8000/api/spotify/playlist",
+        options,
+      );
+
       const json = await res.json();
       setPlanetData(json.items);
-  } finally {
-    setIsLoading(false);
-  }
+    } catch (error) {
+      console.error(`Error occurred: ${error}`);
+    } finally {
+      setIsLoading(false);
+    }
   };
   if (planetData != "empty") {
     return (
@@ -146,10 +147,10 @@ export default function App() {
           </Suspense>
         </Canvas>
         {isLoading && (
-      <div className="loading-container">
-    <CircularProgress />
-  </div>
-)}
+          <div className="loading-container">
+            <CircularProgress />
+          </div>
+        )}
         <Bottomer handleSearch={handleSearch}></Bottomer>
       </>
     );
@@ -167,11 +168,10 @@ export default function App() {
           </Suspense>
         </Canvas>
         {isLoading && (
-  <div className="loading-container">
-    <CircularProgress />
-  </div>
-)}
-
+          <div className="loading-container">
+            <CircularProgress />
+          </div>
+        )}
         <Bottomer handleSearch={handleSearch}></Bottomer>
       </>
     );
@@ -203,7 +203,7 @@ function Planet({
     population,
     image_url,
     album,
-    preview
+    preview,
   },
   setDialogData,
   setOnePlanetData,
@@ -211,11 +211,16 @@ function Planet({
   setIsAnimating,
   setIsDialogVisible,
   planet,
-  audioRef
+  audioRef,
 }) {
   const planetRef = React.useRef();
   const [time, setTime] = useState(0);
-  const imageUrl = `data:image/png;base64,${textureMap}`;
+  let imageUrl;
+  if (textureMap) {
+    imageUrl = `data:image/png;base64,${textureMap}`;
+  } else {
+    imageUrl = tx1;
+  }
   const texture = useLoader(THREE.TextureLoader, imageUrl); //HARDCODED TEXTURE
   useEffect(() => {
     let interval;
@@ -239,12 +244,13 @@ function Planet({
   useFrame(() => {
     if (isAnimating) {
       const t = time * 0.25 * speed + offset;
-
       const x = xRadius * Math.sin(t);
       const z = xRadius * Math.cos(t);
-      planetRef.current.position.x = x;
-      planetRef.current.position.z = z;
-      planetRef.current.rotation.y += rotationSpeed;
+      if (planetRef) {
+        planetRef.current.position.x = x;
+        planetRef.current.position.z = z;
+        planetRef.current.rotation.y += rotationSpeed;
+      }
     }
   });
   const handlePlanetClick = () => {
@@ -256,7 +262,7 @@ function Planet({
       is_explicit,
       population,
       album,
-      preview
+      preview,
     });
     setOnePlanetData({ name, artists, image_url });
     if (audioRef.current) {
@@ -266,7 +272,9 @@ function Planet({
     if (preview) {
       console.log("Playing music from URL: ", preview);
       audioRef.current = new Audio(preview);
-      audioRef.current.play().catch(e => console.error("Error playing audio: ", e));
+      audioRef.current
+        .play()
+        .catch((e) => console.error("Error playing audio: ", e));
     } else {
       console.log("No music preview available for this planet");
     }
@@ -274,27 +282,28 @@ function Planet({
 
   const hitboxSize = size * 1000000;
 
-  return (
-    <>
-      <mesh ref={planetRef} onClick={handlePlanetClick}>
-        <sphereGeometry args={[size, 32, 32]} />
-        <meshStandardMaterial map={texture} />
-        <Html distanceFactor={15}>
-          <div className="annotation">{name}</div>
-        </Html>
-      </mesh>
-      {/* making the hitbox bigger */}
-      <mesh
-        position={planetRef.current ? planetRef.current.position : [0, 0, 0]}
-        onClick={handlePlanetClick}
-        visible={false} // Make the hitbox invisible
-      >
-        <sphereGeometry args={[hitboxSize, 200, 200]} />
-        <meshStandardMaterial opacity={0} transparent />
-      </mesh>
-      <Ecliptic xRadius={xRadius} zRadius={zRadius} />
-    </>
-  );
+  if (planetRef) {
+    return (
+      <>
+        <mesh ref={planetRef} onClick={handlePlanetClick}>
+          <sphereGeometry args={[size, 32, 32]} />
+          <meshStandardMaterial map={texture} />
+          <Html distanceFactor={15}>
+            <div className="annotation">{name}</div>
+          </Html>
+        </mesh>
+        <mesh
+          position={planetRef.current ? planetRef.current.position : [0, 0, 0]}
+          onClick={handlePlanetClick}
+          visible={false} // Make the hitbox invisible
+        >
+          <sphereGeometry args={[hitboxSize, 200, 200]} />
+          <meshStandardMaterial opacity={0} transparent />
+        </mesh>
+        <Ecliptic xRadius={xRadius} zRadius={zRadius} />
+      </>
+    );
+  }
 }
 
 function Lights() {
