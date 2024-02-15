@@ -39,6 +39,8 @@ const res = await fetch(
         options
       );
 ```
+* Our API is hosted on a Uvicorn webserver, which accepts the HTTP request and routes it to the correct path to execute all of the logic to return the requested and modified data. the webserver plans to submit back a json object of the songs transformed into planet data.
+
 * First, we have to use our Spotify developer account to retrieve an authorization token that allows for access to the spotify API
 ```Python
     def generate_authorization_token(self) -> str:
