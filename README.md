@@ -10,8 +10,6 @@
 
 Website URL: ```http://space.spaceify.co/```
 
-<img src="https://github.com/mfkimbell/dummmmmy/assets/107063397/86b924ac-0f93-43d8-ab9e-08e822567781" width="900" height="550"/>
-
 ### **Tools Used:**
 * `React` For rendering jsx elements and creating UI
 * `Npm` Package management and frontend server management
