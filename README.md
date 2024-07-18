@@ -1,5 +1,13 @@
 # Spaceify
 
+## Hosted here:
+https://spaceify.jaydenpyles.dev/
+
+## You need to grab a spotify share URL to display songs on the app
+<img width="609" alt="Screenshot 2024-07-18 at 3 18 46 PM" src="https://github.com/user-attachments/assets/ada67dc0-7abe-49b4-9a47-aefd1519676d">
+
+
+
 ## **Built in 24 hours** - Auburn Hackathon 2024 Submission - Hackathon Theme: Space
 
 ### React web app hosted on AWS EC2 that allows users to dynamically populate 3d rendering of playlists as a solar system. Song metadata determines factors of the planet like size, speed, and rotation. Users can click on planets to hear 30 second snippets of the song that planet represents. Employs computer vision to map album art palette to planet color gradient. Utilizes Docker to host the backend, frontend, and NGINX. 
