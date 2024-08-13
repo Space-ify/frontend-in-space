@@ -27,7 +27,7 @@ Website URL: ```http://space.spaceify.co/```
 * `AWS EC2` Cloud hosting of web applciation
 * `GoDaddy` Hosting for our domain
 * `NGINX` Reverse proxy manager to route traffice from port 80 to docker containers
-* `MultiThreading` Ran multiple threads for processing large amounts of image data
+* `MultiThreading` Ran multiple threads for concurrent execution (downloading images is IO limited)
 * `FastAPI` Python api for querying spotify api and returning data to the frontend
 * `Spotify` We used their API to recieve meta data about playlists for planet manipulation
 
