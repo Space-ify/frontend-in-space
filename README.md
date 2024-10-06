@@ -16,8 +16,7 @@ https://spaceify.jaydenpyles.dev/
 
 ## Architechture 
 
-<img width="900" alt="SpaceifyWorkflow" src="https://github.com/user-attachments/assets/d5898481-3e33-4cca-a048-3e577fcf381a">
-
+<img width="900" alt="SpaceifyWorkflow" src="https://github.com/user-attachments/assets/38fc6c58-6642-48e7-b8d6-1da0e7989339">
 
 ### **Tools Used:**
 * `React` For rendering jsx elements and creating UI
