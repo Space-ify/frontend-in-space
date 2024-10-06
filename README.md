@@ -1,6 +1,6 @@
 # Spaceify
 
-## Hosted here:
+## Currently Hosted here:
 https://spaceify.jaydenpyles.dev/
 
 ## You need to grab a spotify share URL to display songs on the app
@@ -14,9 +14,10 @@ https://spaceify.jaydenpyles.dev/
 
 ### This repository is one of three. To see the others go to the "Space-ify" organization
 
-<img width="900" alt="SpaceifyWorkflow" src="https://github.com/uabhacks-at-auhacks24/frontend-in-space/assets/107063397/9a16df09-0a64-4e8c-a322-6b1abb6e70c8">
+## Architechture 
 
-Website URL: ```http://space.spaceify.co/```
+<img width="900" alt="SpaceifyWorkflow" src="https://github.com/user-attachments/assets/d5898481-3e33-4cca-a048-3e577fcf381a">
+
 
 ### **Tools Used:**
 * `React` For rendering jsx elements and creating UI
