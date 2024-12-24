@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spaceify-frontend
+  namespace: spaceify
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spaceify-frontend
+  template:
+    metadata:
+      labels:
+        app: spaceify-frontend
+    spec:
+      containers:
+        - name: spaceify-frontend
+          image: jpyles0524/spaceify-frontend:latest
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spaceify-frontend
+  namespace: spaceify
+spec:
+  selector:
+    app: spaceify-frontend
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 30124
+  type: NodePort

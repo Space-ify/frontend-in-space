@@ -101,7 +101,7 @@ export default function App() {
       };
 
       const res = await fetch(
-        "http://space.spaceify.co/api/spotify/playlist",
+        "/api/spotify/playlist",
         options,
       );
 
